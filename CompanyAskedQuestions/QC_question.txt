@@ -1,0 +1,23 @@
+/Copy 0x200 bytes of memory from 0x1000(src) to 0x1100(dest) address/
+    
+/Array of 50 to store numbers from 1-49 with 1 number duplicate. Find to that duplicate number/
+  
+/*  
+Check if the input string has balanced set of brackets or not.
+Allowed brackets = '{' '[' '(' ')' ']' '}'
+Assume input string does not have any other characters(other than brackets) */
+
+
+/* Given a 1-D array, write a function to rotate the elements left(anti-clockwise direction) by the given number.     /*  
+
+
+/*
+// Implement a function to count the number of lower/upper case characters in a given string
+// For eg: Input = "ssfaqDddBB"
+
+/*         Output:  a = 1      A = 0
+                    b = 0      B = 2
+                    ...        ...
+                    z = 0      Z = 0
+      
+*/
