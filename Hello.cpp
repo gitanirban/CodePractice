@@ -5,6 +5,6 @@ using namespace std;
 int main()
 {
     cout << "Hello world!" << endl;
-	//uyu
+	//hello
     char tr = 't';
 }
