@@ -59,7 +59,14 @@ public:
     std::swap(str1.m_length, str2.m_length);
     
   }
-    
+  
+  ~String(){
+     if(mp_resource)  {
+     delete [] mp_resource;
+       mp_resource = nullptr;
+       m_length = 0 ;
+     }
+  }
   uint8_t length(){ return m_length}
   friend ostream& operator << (ostream& out, const String & rStr);
   friend istream& operator >> (istream& in, const String & rStr);
