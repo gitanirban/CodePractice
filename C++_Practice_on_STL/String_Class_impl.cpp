@@ -1,0 +1,7 @@
+class String {
+
+};
+
+int main(){
+
+}
