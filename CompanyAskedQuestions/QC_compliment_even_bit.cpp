@@ -2,46 +2,27 @@
 //
 
 #include <iostream>
-#include<cstdint>
+#include <cstdint>
 using namespace std;
-void complimentNthBit(uint8_t);
-uint32_t data_32 = 0x1234;
+
+uint32_t getNexthighestPower(uint32_t v)
+{
+    v--;
+    v |= v >> 1;
+    v |= v >> 2;
+    v |= v >> 4;
+    v |= v >> 8;
+    v |= v >> 16;
+    v++;
+    return v;
+}
 
 int main()
 {
-    std::cout << "Before" <<endl;
-    //printf("%b \n", data_32);
-    printf("%x \n", data_32);
-    uint8_t count = 0;
-    while (count < 16) {
-        if (count % 2 == 0)
-        {
-            complimentNthBit(count);
-        }
+    const uint64_t EVEN_BIT_MASK = 0x55'55'55'55'55;
 
-        count++;
-    }
-    std::cout << "\n\n\nafter\n";
-   // printf("%b \n", data_32);
-    printf("%x \n", data_32);
-}
-
-void complimentNthBit(uint8_t N) {
-
-    // check if bit is set or not
-    bool mask = data_32 & (1 << N);
-
-    //toggle the bit
-    if (mask == false)
-    {
-        //set
-        uint32_t maskToSet = (!mask) << N;
-        data_32 = data_32 | maskToSet;
-    }
-    else
-    {  
-        //reset
-        uint32_t maskToSet = ~(mask << N);
-        data_32 = data_32 & maskToSet;
-    }
+    uint32_t input = 0;
+    uint32_t result = input ^ EVEN_BIT_MASK;
+    result &= (getNexthighestPower(input) - 1U);
+    cout << result << endl;
 }
