@@ -4,7 +4,7 @@
 
 int main()
 {
-std::deque<int> mydeque(4);
+std::deque<int> mydeque;
 
 mydeque.push_back(10);
 mydeque.push_back(20);

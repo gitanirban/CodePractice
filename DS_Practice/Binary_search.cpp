@@ -7,7 +7,7 @@ int binSearch(int arr[], int l, int r, int x)
 {
     while (r >= l)
     {
-        int m = l +((r - l) / 2);
+        int m = l + ((r - l) / 2);
 
         if (arr[m] == x)
             return m;

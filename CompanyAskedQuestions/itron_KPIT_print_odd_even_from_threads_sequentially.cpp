@@ -1,3 +1,9 @@
+// https://stackoverflow.com/questions/14641134/printing-odd-and-even-number-printing-alternately-using-threads-in-c
+// https://codereview.stackexchange.com/questions/200997/multithread-to-print-odd-and-even-numbers
+// check the link as working solution.
+// the below solution is not working 
+
+
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
