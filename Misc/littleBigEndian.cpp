@@ -1,21 +1,24 @@
-//little big endian
+// little big endian
 #include <iostream>
 #include <cstdint>
 using namespace std;
 int main()
 {
-    cout << "Hello World!\n";
-    uint32_t value = 0x01;
-    uint8_t test = ~0;
+    uint32_t value = 0x11223344;
+    //                MSB    LSB
 
-    uint8_t* pTtest = (uint8_t*)&value;
+    uint8_t *pTtest = (uint8_t *)&value;
 
-    printf("%d", *pTtest);
+    printf("Data at lowest address: 0x%x\n", *pTtest);
 
-    unsigned int i = 1;
-    char* c = (char*)&i;
-    if (*c)
-        printf("Little endian");
+    char *c = (char *)&value;
+    if (*c == 0x44)
+    {
+        printf("Little endian: As lowest address has MSB\n");
+        printf("Data: 0x44 0x33 0x33 0x22 0x11\n");
+        printf("Add : 0x00 0x01 0x02 0x03 0x04\n");
+    }
+
     else
         printf("Big endian");
 }
