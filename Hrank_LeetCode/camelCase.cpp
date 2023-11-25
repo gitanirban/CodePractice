@@ -35,7 +35,7 @@ int camelcase(string s)
     for(uint64_t i =0; i<=sz; i++ )
     {
         if(myCapsSet.find(str_char[i]) != myCapsSet.end())
-        result++;
+        {result++;}
     }
 return result;
 }
