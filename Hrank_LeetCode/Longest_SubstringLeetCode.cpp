@@ -5,17 +5,17 @@
 #include <unordered_set>
 #include <queue>
 using namespace std;
-int lengthOfLongestSubstring(string str);
+int lengthOfLongestSubstringOptimised(const std::string& str);
 
 int const sz = 5;
 
 int main()
 {
     string str = "abcabcbb"; // abcabcbb dvdf bbbbb pwwkew
-    cout << lengthOfLongestSubstring(str) << endl;
+    cout << lengthOfLongestSubstringOptimised(str) << endl;
 }
 
-int lengthOfLongestSubstring(string str)
+int lengthOfLongestSubstring(const std::string& str)
 {
     int res = 0;
     int res_max = 0;
@@ -26,21 +26,22 @@ int lengthOfLongestSubstring(string str)
     int i = 0;
     while (i < sz)
     {
-        char c = str.at(i);
-        if (visited_set.find(c) == visited_set.end())
+        char current_char = str.at(i);
+        if (visited_set.find(current_char) == visited_set.end())
         {
-            visited_set.insert(c);
-            visited_queue.push(c);
+            visited_set.insert(current_char);
+            visited_queue.push(current_char);
             res++;
             i++;
         }
-        else if ((visited_set.find(c) != visited_set.end()))
+        else if ((visited_set.find(current_char) != visited_set.end()))
         {
             if (res > res_max)
             {
                 res_max = res;
             }
-            visited_set.erase(visited_queue.front());
+            char del = visited_queue.front();
+            visited_set.erase(del);
             visited_queue.pop();
 
             res = visited_set.size();
@@ -50,6 +51,26 @@ int lengthOfLongestSubstring(string str)
     if (res > res_max)
     {
         res_max = res;
+    }
+
+    return res_max;
+}
+
+
+int lengthOfLongestSubstringOptimised(const std::string& str) {
+    int res_max = 0;
+    int left = 0;
+    std::unordered_set<char> visited_set;
+
+    for (int right = 0; right < str.length(); ++right) {
+        char c = str[right];
+        while (visited_set.find(c) != visited_set.end()) {
+            visited_set.erase(str[left]);
+            ++left;
+        }
+
+        visited_set.insert(c);
+        res_max = std::max(res_max, right - left + 1);
     }
 
     return res_max;
