@@ -3,16 +3,17 @@
 // other solutions https://www.geeksforgeeks.org/length-of-the-longest-substring-without-repeating-characters/
 #include <iostream>
 #include <unordered_set>
+#include <unordered_map>
 #include <queue>
 using namespace std;
-int lengthOfLongestSubstringOptimised(const std::string& str);
+int lengthOfLongestSubstringOptimisedEvenMore(const std::string& str);
 
 int const sz = 5;
 
 int main()
 {
-    string str = "abcabcbb"; // abcabcbb dvdf bbbbb pwwkew
-    cout << lengthOfLongestSubstringOptimised(str) << endl;
+    string str = "abba"; // abcabcbb dvdf bbbbb pwwkew
+    cout << lengthOfLongestSubstringOptimisedEvenMore(str) << endl;
 }
 
 int lengthOfLongestSubstring(const std::string& str)
@@ -74,4 +75,31 @@ int lengthOfLongestSubstringOptimised(const std::string& str) {
     }
 
     return res_max;
+}
+
+
+int lengthOfLongestSubstringOptimisedEvenMore(const std::string& s) {
+    // https://youtu.be/GS9TyovoU4c?t=1786
+    std::unordered_map<char, int> char_last_index;  // Map to store the last index of each character
+    int max_length = 0;
+    int start_of_current_substring = 0;
+
+    for (int current_index = 0; current_index < s.length(); ++current_index) {
+        char current_char = s[current_index];
+
+        // If the current character is repeating within the current substring
+        if (char_last_index.find(current_char) != char_last_index.end() &&
+            char_last_index[current_char] >= start_of_current_substring) {
+            // Update the start index to the next index after the last occurrence of the repeating character
+            start_of_current_substring = char_last_index[current_char] + 1;
+        }
+
+        // Update the index of the current character in the map
+        char_last_index[current_char] = current_index;
+
+        // Update the maximum length if the current substring is longer
+        max_length = std::max(max_length, current_index - start_of_current_substring + 1);
+    }
+
+    return max_length;
 }
