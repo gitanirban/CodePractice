@@ -5,7 +5,7 @@
 #include <unordered_set>
 #include <queue>
 using namespace std;
-int lengthOfLongestSubstringOptimised(const std::string &str);
+int lengthOfLongestSubstringOptimised(const std::string& str);
 
 int const sz = 5;
 
@@ -15,7 +15,7 @@ int main()
     cout << lengthOfLongestSubstringOptimised(str) << endl;
 }
 
-int lengthOfLongestSubstring(const std::string &str)
+int lengthOfLongestSubstring(const std::string& str)
 {
     int res = 0;
     int res_max = 0;
@@ -56,17 +56,15 @@ int lengthOfLongestSubstring(const std::string &str)
     return res_max;
 }
 
-int lengthOfLongestSubstringOptimised(const std::string &str)
-{
+
+int lengthOfLongestSubstringOptimised(const std::string& str) {
     int res_max = 0;
     int left = 0;
     std::unordered_set<char> visited_set;
 
-    for (int right = 0; right < str.length(); ++right)
-    {
+    for (int right = 0; right < str.length(); ++right) {
         char c = str[right];
-        while (visited_set.find(c) != visited_set.end())
-        {
+        while (visited_set.find(c) != visited_set.end()) {
             visited_set.erase(str[left]);
             ++left;
         }
