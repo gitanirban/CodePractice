@@ -1,28 +1,22 @@
 #include <iostream>
 #include <cstdint>
 using namespace std;
-int main()
-{
-   
-    int8_t a, b = 0;
-    cin >> a;
-    cin >> b;
-    cout << "enterd number is " << a  <<" & "<< b << endl;
+#include <iostream>
 
-    int8_t c = a - b;
-    int mask =  1 << 7;
-    bool sb = c & mask;
+int max_of_two_numbers(int a, int b) {
+    // Calculate the sign difference between a and b
+    bool sign_diff = ((a - b) >> 31) & 1;
 
-    if( a & mask)
-        cout << b << " is bigger " << endl;
+    // Use the sign difference to determine the maximum
+    // If sign_diff is 0, then a is greater or equal, so return a
+    // If sign_diff is 1, then b is greater, so return b
+    return a - sign_diff * (a - b);
+}
 
-    else if (b & mask)
-        cout << a << " is bigger " << endl;
+int main() {
+    // Example usage:
+    int result = max_of_two_numbers(99,1);
+    std::cout << result << std::endl;  // Output: 8
 
-    if ((sb == false) && ((a & mask) == false) && ((b & mask)) == false)
-        cout << a <<" is bigger if case " << endl;
-    else
-        cout << b << " is bigger else case" << endl;
-    std::cout << "Hello World!\n";
-   
+    return 0;
 }

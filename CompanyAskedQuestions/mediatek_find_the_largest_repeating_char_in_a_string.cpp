@@ -5,19 +5,20 @@
 
 using namespace std;
 
-char const *pString = "aabbbcccc";
+char const* pString = "aabbbcccc";
 map<int, int, greater<int>> myMap;
 
 int main() {
 
     int max = 0;
-    uint8_t len = strlen((char const *) pString);
+    uint8_t len = strlen((char const*)pString);
 
     for (int itr = 0; itr <= len; itr++) {
         if (*(pString + itr) == *(pString + itr + 1)) {
             // increment max
             max++;
-        } else {
+        }
+        else {
             //reset max and store
             myMap.insert(make_pair(max + 1, itr - (max)));
             max = 0;
