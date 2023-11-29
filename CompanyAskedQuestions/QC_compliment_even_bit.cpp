@@ -1,5 +1,3 @@
-// ConsoleApplication2_compliment_even_bit.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <iostream>
 #include <cstdint>
