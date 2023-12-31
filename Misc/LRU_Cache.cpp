@@ -12,6 +12,8 @@ public:
     void insert(int data);
 
     void display();
+    void test(int arr[]);
+
 
 private:
     list<int> m_dq;
@@ -20,21 +22,24 @@ private:
 };
 
 void LRUCache::insert(int data) {
-    // check already there
-    // not present
-    if (m_map.find(data) == m_map.end()) {
-        // already full
-        if (m_dq.size() == m_size) {
+    // item not present and full so delete the last used item
+    if (m_map.find(data) == m_map.end())
+    {
+        if(m_dq.size() == m_size)
+        {
             int least_used_data = m_dq.back();
             m_dq.pop_back();
             m_map.erase(least_used_data);
         }
     }
-        // present
-    else {
+    
+    else // item already present, then remove the item.
+    {
         m_dq.erase(m_map[data]);
+       // m_map.erase(data);
     }
-    // update
+
+    // add the new data in the front of deque
     m_dq.push_front(data);
     m_map[data] = m_dq.begin();
 }
@@ -46,15 +51,44 @@ void LRUCache::display() {
     cout << endl;
 }
 
+void LRUCache::test(int arr[]) {
+    for (auto i = m_dq.begin(); i != m_dq.end(); i++)
+    {
+        if (*i != *arr++)
+        {
+            cout << "test fail\t" << *i << "\t" << *arr << endl;
+        }
+    }
+
+    if (m_dq.size() != m_size)
+        cout << "test fail : Size mismatch " << endl;
+
+}
+
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    LRUCache lruCacheObj(4);
+    std::cout << "Hello, LRU!" << std::endl;
+    LRUCache lruCacheObj(3);
     lruCacheObj.insert(1);
     lruCacheObj.insert(2);
     lruCacheObj.insert(3);
+
+    int arr[] = { 3, 2, 1 };
+    lruCacheObj.test(arr);
+
     lruCacheObj.insert(1);
+    int arr2[] = { 1, 3, 2 };
+    lruCacheObj.test(arr2);
+
+
     lruCacheObj.insert(4);
+    int arr3[] = { 4, 1, 3 };
+    lruCacheObj.test(arr3);
+
     lruCacheObj.insert(5);
+    int arr4[] = { 5, 4, 1 };
+    lruCacheObj.test(arr4);
+
     lruCacheObj.display();
 
 
