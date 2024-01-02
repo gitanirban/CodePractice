@@ -3,56 +3,75 @@
 
 using namespace std;
 
-// Least Recently Used Cache
-// https://www.geeksforgeeks.org/lru-cache-implementation/
+// Least Recently Used Cache.  This dont have get method. https://www.geeksforgeeks.org/lru-cache-implementation/
+
+// Better Implementation : https://www.youtube.com/watch?v=iEmActx7dYc as per leet code problem.
+
+// Need to fix the test cases as per leet code, it has time overhead. Not sure why.
+
+// Its suppossed to have O(1) time complexity for get() and put()
+
 class LRUCache {
 public:
     LRUCache(int size) : m_size(size) {}
 
-    void insert(int data);
+    int get(int const key);
+    void put(int key, int value);
+    void put(int key);
 
     void display();
     void test(int arr[]);
 
 
 private:
-    list<int> m_dq;
-    unordered_map<int, list<int>::iterator> m_map;
+    list<int> m_dq_keys;
+    unordered_map<int /*key*/, pair<int /*value */, list<int>::iterator>> m_map;
     const int m_size;
 };
 
-void LRUCache::insert(int data) {
-    // item not present and full so delete the last used item
-    if (m_map.find(data) == m_map.end())
+int LRUCache::get(int const key)
+{
+    if (m_map.find(key) != m_map.end())
     {
-        if(m_dq.size() == m_size)
-        {
-            int least_used_data = m_dq.back();
-            m_dq.pop_back();
-            m_map.erase(least_used_data);
-        }
+        // If present then put it in front.
+        m_dq_keys.erase(m_map[key].second);
+        m_dq_keys.push_front(key);
+        m_map[key].second = m_dq_keys.begin();
+        return m_map[key].first;
     }
-    
-    else // item already present, then remove the item.
-    {
-        m_dq.erase(m_map[data]);
-       // m_map.erase(data);
-    }
-
-    // add the new data in the front of deque
-    m_dq.push_front(data);
-    m_map[data] = m_dq.begin();
+    return -1;
 }
 
+void LRUCache::put(int key, int value) {
+    if (m_map.find(key) != m_map.end()) {
+        // If present then put it in front.
+        m_dq_keys.erase(m_map[key].second);
+        m_dq_keys.push_front(key);
+
+        m_map[key] = { value, m_dq_keys.begin() };
+    }
+    else {
+        if (m_dq_keys.size() == m_size) {
+            m_map.erase(m_dq_keys.back());
+            m_dq_keys.pop_back();
+        }
+        m_dq_keys.push_front(key);
+        m_map[key] = { value, m_dq_keys.begin() };
+    }
+}
+
+
+
+
 void LRUCache::display() {
-    for (auto i = m_dq.begin(); i != m_dq.end(); i++)
+    for (auto i = m_dq_keys.begin(); i != m_dq_keys.end(); i++)
         cout << *(i) << " ";
 
     cout << endl;
 }
 
 void LRUCache::test(int arr[]) {
-    for (auto i = m_dq.begin(); i != m_dq.end(); i++)
+    for (auto i = m_dq_keys.begin(); i != m_dq_keys.end(); i++)
     {
         if (*i != *arr++)
         {
@@ -60,7 +79,7 @@ void LRUCache::test(int arr[]) {
         }
     }
 
-    if (m_dq.size() != m_size)
+    if (m_dq_keys.size() != m_size)
         cout << "test fail : Size mismatch " << endl;
 
 }
@@ -68,29 +87,17 @@ void LRUCache::test(int arr[]) {
 
 int main() {
     std::cout << "Hello, LRU!" << std::endl;
-    LRUCache lruCacheObj(3);
-    lruCacheObj.insert(1);
-    lruCacheObj.insert(2);
-    lruCacheObj.insert(3);
+    LRUCache lruCacheObj(2);
 
-    int arr[] = { 3, 2, 1 };
-    lruCacheObj.test(arr);
-
-    lruCacheObj.insert(1);
-    int arr2[] = { 1, 3, 2 };
-    lruCacheObj.test(arr2);
-
-
-    lruCacheObj.insert(4);
-    int arr3[] = { 4, 1, 3 };
-    lruCacheObj.test(arr3);
-
-    lruCacheObj.insert(5);
-    int arr4[] = { 5, 4, 1 };
-    lruCacheObj.test(arr4);
-
-    lruCacheObj.display();
-
+    lruCacheObj.put(1, 1);
+    lruCacheObj.put(2, 2);
+    cout << lruCacheObj.get(1) << endl;
+    lruCacheObj.put(3, 3);
+    cout << lruCacheObj.get(2) << endl;
+    lruCacheObj.put(4, 4);
+    cout << lruCacheObj.get(1) << endl;
+    cout << lruCacheObj.get(3) << endl;
+    cout << lruCacheObj.get(4) << endl;
 
 
     return 0;
