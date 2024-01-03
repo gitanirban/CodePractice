@@ -16,7 +16,7 @@ int main()
     cout << lengthOfLongestSubstringOptimisedEvenMore(str) << endl;
 }
 
-int lengthOfLongestSubstring(const std::string& str)
+int lengthOfLongestSubstringMy(const std::string& str)
 {
     int res = 0;
     int res_max = 0;
@@ -102,4 +102,26 @@ int lengthOfLongestSubstringOptimisedEvenMore(const std::string& s) {
     }
 
     return max_length;
+}
+
+
+int lengthOfLongestSubstring_GPT(const std::string& str) {
+    int n = str.length();
+    int res = 0;
+    int left = 0, right = 0;
+
+    std::unordered_set<char> visited_set;
+
+    while (right < n) {
+        if (visited_set.find(str[right]) == visited_set.end()) {
+            visited_set.insert(str[right]);
+            res = std::max(res, right - left + 1);
+            right++;
+        } else {
+            visited_set.erase(str[left]);
+            left++;
+        }
+    }
+
+    return res;
 }
