@@ -11,7 +11,10 @@ private:
     size_t m_size;
 
 public:
-    LRUCache(size_t size) : m_size(size) {}
+    LRUCache(size_t size) : m_size(size) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+    }
 
     string get(const string& key) {
         if (m_map.find(key) != m_map.end()) {
@@ -46,7 +49,7 @@ void test()
 {
     LRUCache cache{ 3 };
     const string s[] = { "alpha", "beta" };
- 
+
     auto put = [&](const std::string& key, const std::string& value)
         {
             std::cout << "put: " << key << " <- " << value << std::endl;
@@ -61,15 +64,15 @@ void test()
             std::cout << "get: " << key << " -> " << value << std::endl;
             return value;
         };
-  
-      put("A", s[0]);
-      put("B", "beta");
-      put("C", "gamma");
-      put("D", "delta");
 
-      get("A"); // Expected output: "A -> "
-      get("B"); // Expected output: "B -> beta"
-      get("C"); // Expected output: "C -> gamma"
-      get("D"); // Expected output: "D -> delta"
-  
+    put("A", s[0]);
+    put("B", "beta");
+    put("C", "gamma");
+    put("D", "delta");
+
+    get("A"); // Expected output: "A -> "
+    get("B"); // Expected output: "B -> beta"
+    get("C"); // Expected output: "C -> gamma"
+    get("D"); // Expected output: "D -> delta"
+
 }
