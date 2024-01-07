@@ -24,39 +24,16 @@ unordered_set<char> myCapsSet;
 // Complete the camelcase function below.
 int camelcase(string s)
 {
-    int result =0;
-
-    int sz = s.size();
-    char str_char[sz + 1];
-    strcpy(str_char, s.c_str());
-    if(sz > 0)
-        result++;
-
-    for(uint64_t i =0; i<=sz; i++ )
-    {
-        if(myCapsSet.find(str_char[i]) != myCapsSet.end())
-        {result++;}
-    }
-return result;
+size_t count_upper = count_if(s.begin(), s.end(),    
+               [](unsigned char ch) { return isupper(ch); });
+return count_upper + 1;
 }
 
-void init_my(){
 
-for(uint8_t i = 65; i<=90; i++)
-   myCapsSet.insert(i);
-}
 int main()
 {
-    ofstream fout(getenv("OUTPUT_PATH"));
-
-    string s;
-    getline(cin, s);
-    init_my();
-    int result = camelcase(s);
-
-    fout << result << "\n";
-
-    fout.close();
+    string s = "saveChangesInTheEditor";
+    cout << camelcase(s) << endl;
 
     return 0;
 }
