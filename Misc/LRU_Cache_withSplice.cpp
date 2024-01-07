@@ -1,69 +1,75 @@
-#include <iostream>
+// Asked in Hexagon Leica interview
+
 #include <bits/stdc++.h>
 
 using namespace std;
-
-// Least Recently Used Cache.  This dont have get method. https://www.geeksforgeeks.org/lru-cache-implementation/
-
-// Better Implementation : https://www.youtube.com/watch?v=iEmActx7dYc as per leet code problem.
-
-// Need to fix the test cases as per leet code, it has time overhead. Not sure why 
-// https://leetcode.com/problems/lru-cache/ 
-
-// Its suppossed to have O(1) time complexity for get() and put()
-
-// this solution fixes the problem
-
 class LRUCache
 {
+private:
+    std::list<string> m_dq_key;
+    std::unordered_map <string /* key*/, pair<string /* value */, list<string>::iterator /* pos */>> m_map;
+    size_t m_size;
+
 public:
-    list<pair<int, int>> l;
-    unordered_map<int, list<pair<int, int>>::iterator> m;
-    int size;
-    LRUCache(int capacity)
-    {
-        size = capacity;
-    }
-    int get(int key)
-    {
-        if (m.find(key) == m.end())
-            return -1;
-        l.splice(l.begin(), l, m[key]);
-        return m[key]->second;
-    }
-    void put(int key, int value)
-    {
-        if (m.find(key) != m.end())
-        {
-            l.splice(l.begin(), l, m[key]);
-            m[key]->second = value;
-            return;
+    LRUCache(size_t size) : m_size(size) {}
+
+    string get(const string& key) {
+        if (m_map.find(key) != m_map.end()) {
+            //void splice( const_iterator pos, list& other, const_iterator it );
+            m_dq_key.splice(m_dq_key.begin(), m_dq_key, m_map[key].second);
+            m_map[key].second = m_dq_key.begin();
+            return m_map[key].first;
         }
-        if (l.size() == size)
-        {
-            auto d_key = l.back().first;
-            l.pop_back();
-            m.erase(d_key);
+        return {};
+    }
+
+    void put(const string& key, const string& value) {
+        if (m_map.find(key) != m_map.end()) {
+            // same key already exit, but replace the new value, may be value is new
+            m_dq_key.splice(m_dq_key.begin(), m_dq_key, m_map[key].second);
+            m_map[key] = { value, m_dq_key.begin() };
         }
-        l.push_front({ key,value });
-        m[key] = l.begin();
+        else {// new key
+            // if there is no room, make one.
+            if (m_map.size() == m_size) {
+                m_map.erase(m_dq_key.back());
+                m_dq_key.pop_back();
+            }
+            // now put the new key value
+            m_dq_key.push_front(key);
+            m_map[key] = { value, m_dq_key.begin() };
+        }
     }
 };
 
-int main() {
-    std::cout << "Hello, LRU!" << std::endl;
-    LRUCache lruCacheObj(1);
+void test()
+{
+    LRUCache cache{ 3 };
+    const string s[] = { "alpha", "beta" };
+ 
+    auto put = [&](const std::string& key, const std::string& value)
+        {
+            std::cout << "put: " << key << " <- " << value << std::endl;
 
-    cout << lruCacheObj.get(6) << endl;
-    cout << lruCacheObj.get(8) << endl;
-    lruCacheObj.put(12, 1);
-    cout << lruCacheObj.get(2) << endl;
-    lruCacheObj.put(15, 11);
-    lruCacheObj.put(5, 2);
-    lruCacheObj.put(1, 15);
-    lruCacheObj.put(4, 2);
-    cout << lruCacheObj.get(5) << endl;
-    lruCacheObj.put(15, 15);
+            cache.put(key, value);
+        };
 
-    return 0;
+    auto get = [&](const std::string& key)
+        {
+
+            auto value = cache.get(key);
+            std::cout << "get: " << key << " -> " << value << std::endl;
+            return value;
+        };
+  
+      put("A", s[0]);
+      put("B", "beta");
+      put("C", "gamma");
+      put("D", "delta");
+
+      get("A"); // Expected output: "A -> "
+      get("B"); // Expected output: "B -> beta"
+      get("C"); // Expected output: "C -> gamma"
+      get("D"); // Expected output: "D -> delta"
+  
 }
