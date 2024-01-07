@@ -7,8 +7,6 @@ using namespace std;
 
 // Better Implementation : https://www.youtube.com/watch?v=iEmActx7dYc as per leet code problem.
 
-// Need to fix the test cases as per leet code, it has time overhead. Not sure why 
-// Fixed in the constructor 
 // https://leetcode.com/problems/lru-cache/ 
 
 // Its has O(1) time complexity for get() and put()
@@ -16,7 +14,7 @@ using namespace std;
 class LRUCache {
 public:
     LRUCache(int size) : m_size(size) {
-        ios_base::sync_with_stdio(false);
+        ios_base::sync_with_stdio(false); // with out this, there is time overhead.
         cin.tie(NULL);
     }
 
