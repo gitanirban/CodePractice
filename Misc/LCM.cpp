@@ -21,6 +21,6 @@ int main()
 {
     int a = 15, b = 20;
     cout <<"LCM of " << a << " and "
-         << b << " is " << lcm(a, b);
+         << b << " is " << gcd(a, b);
     return 0;
 }

@@ -2,14 +2,14 @@
 
 using namespace std;
 
-void addi(int a,int b)
+void addi(int a, int b)
 {
-    cout << a+b << endl;
+    cout << a + b << endl;
 }
 
 void subs(int a, int b)
 {
-    cout << a-b << endl;
+    cout << a - b << endl;
 }
 
 int main()
@@ -18,10 +18,10 @@ int main()
     int a = 10;
     int b = 2;
     int choice;
- cout << "enter 0 to add, 1 to substract"<< endl;
- cin >> choice;
+    cout << "enter 0 to add, 1 to substract" << endl;
+    cin >> choice;
 
- void(*fptrAddDel[])(int, int) = {addi, subs};
-fptrAddDel[choice](a,b);
+    void(*fptrAddDel[])(int, int) = { addi, subs };
+    fptrAddDel[choice](a, b);
     return 0;
 }
