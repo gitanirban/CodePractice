@@ -8,7 +8,7 @@ using namespace std;
 int main()
 {
     int b = 2;
-    int * a = &b;// cat; // animal has to have at least one virtual function
+    int * a = &b;
     if( typeid(*a) == typeid(int) )
     {
         cout << true ;
