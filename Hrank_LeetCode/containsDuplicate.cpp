@@ -16,7 +16,6 @@ public:
             }
             else {
                 return_v = true;
-                break;
             }
         }
         return return_v;
@@ -25,8 +24,8 @@ public:
 
 int main() {
     Solution obj;
-    
-    cout << obj.containsDuplicate({ 1,5,-2,-4,0 }) << endl;
+    vector<int> input{ 1,5,-2,-4,0 };
+    cout << obj.containsDuplicate(input) << endl;
 
     return 0;
 }
