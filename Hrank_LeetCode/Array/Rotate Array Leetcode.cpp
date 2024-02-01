@@ -19,8 +19,20 @@ public:
     }
 };
 
+class SolutionInplace {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int offset = k % nums.size();
+
+        reverse(nums.begin(), nums.end());
+        reverse(nums.begin(), nums.end() - (offset + 1));
+        reverse(nums.begin() + offset, nums.end());
+
+    }
+};
+
 int main() {
-    Solution obj;
+    SolutionInplace obj;
     vector<int> input{ 1,2,3,4,5,6,7 };
     obj.rotate(input, 3);
     for (auto num : input) {

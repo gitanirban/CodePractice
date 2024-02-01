@@ -5,6 +5,28 @@ using namespace std;
 class Solution {
 public:
     bool isValid(std::string s) {
+        vector<char> stack;
+        unordered_map<char, char> closeToOpen{ { ')','('}, { '}','{'}, { ']','['} };
+
+        for (auto c : s)
+        {
+            if (closeToOpen.find(c) != closeToOpen.end())
+                if (stack.size() and stack.back() == closeToOpen[c]) stack.pop_back();
+                else
+                    return false;
+
+            else
+                stack.push_back(c);
+        }
+
+        return stack.size() == 0;
+    }
+};
+
+
+class Solution2 {
+public:
+    bool isValid(std::string s) {
         std::stack<char> brackets_stack;
         for (size_t i = 0; i < s.size(); i++)
         {
@@ -23,3 +45,12 @@ public:
         return true;
     }
 };
+int main() {
+    Solution obj;
+
+    string s = "]";
+
+    cout << obj.isValid(s);
+
+    return 0;
+}

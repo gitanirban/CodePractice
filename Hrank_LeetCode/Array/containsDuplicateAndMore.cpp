@@ -18,6 +18,21 @@ public:
         return return_v;
     }
 };
+
+class Solution {
+public:
+    bool containsDuplicateBetter(vector<int>& nums) {
+        unordered_set<int> uset(nums.size());
+        bool return_v = false;
+        for (uint32_t i = 0; i < nums.size(); i++) {
+            if (uset.find(nums[i]) != uset.end()) 
+                return true;
+            uset.insert(nums[i]);
+        }
+        return false;
+    }
+};
+
 // Find the single number 
 class Solution2 {
 public:
