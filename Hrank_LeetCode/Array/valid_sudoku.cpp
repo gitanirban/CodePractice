@@ -11,7 +11,7 @@ public:
 
         for (int r = 0; r < 9; ++r) {
             for (int c = 0; c < 9; ++c) {
-                cout << (r / 3) * 3 + c / 3 << "\t";
+              //  cout << (r / 3) * 3 + c / 3 << "\t";
                 if (board[r][c] == '.') {
                     continue;
                 }
@@ -25,7 +25,7 @@ public:
                 cols[c].insert(board[r][c]);
                 squares[(r / 3) * 3 + c / 3].insert(board[r][c]);
             }
-            cout << endl;
+            //cout << endl;
         }
 
         return true;
