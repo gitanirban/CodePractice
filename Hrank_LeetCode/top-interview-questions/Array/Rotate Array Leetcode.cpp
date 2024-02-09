@@ -25,7 +25,7 @@ public:
         int offset = k % nums.size();
 
         reverse(nums.begin(), nums.end());
-        reverse(nums.begin(), nums.end() - (offset + 1));
+        reverse(nums.begin(), nums.begin() + offset);
         reverse(nums.begin() + offset, nums.end());
 
     }

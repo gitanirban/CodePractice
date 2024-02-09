@@ -57,7 +57,6 @@ public:
             nums2Map[n]++;
         }
         for (auto n : nums1) {
-            auto current = nums2Map.find(n);
             if (--nums2Map[n] >= 0) {
                 res.push_back(n);
             }
