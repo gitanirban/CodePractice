@@ -1,6 +1,3 @@
-// this is not a optimised solution from stack over flow/
-// another example : https://gist.github.com/jmurudi/7a2fc49e855cb0b308d19f277c7e12b7
-
 #include <iostream>
 #include <thread>
 #include <mutex>
@@ -9,45 +6,41 @@ using namespace std;
 
 int count = 1;
 mutex m;
-bool evenReady = true;
 condition_variable cond;
+bool evenReady = true;
 
-void printEven()
-{
-    while (count < 10)
-    {
+void printEven() {
+    while (count < 10) {
         unique_lock<mutex> lock(m);
-        cond.wait(lock, []
-                  { return evenReady; });
-        evenReady = false;
+        cond.wait(lock, [] { return evenReady; });
 
-        cout << "Even Print " << count<<endl;
+        cout << "Even Print " << count << endl;
         count++;
-        cond.notify_all();
+        evenReady = false; // Toggle ready status for the next turn
+
+        cond.notify_one(); // Notify the odd thread
     }
 }
 
-void printOdd()
-{
-    while (count < 10)
-    {
+void printOdd() {
+    while (count < 10) {
         unique_lock<mutex> lock(m);
-        cond.wait(lock, []
-                  { return !evenReady; });
-        evenReady = true;
+        cond.wait(lock, [] { return !evenReady; });
 
-        cout << "Odd Print " << count <<endl;
+        cout << "Odd Print " << count << endl;
         count++;
-        cond.notify_all();
+        evenReady = true; // Toggle ready status for the next turn
+
+        cond.notify_one(); // Notify the even thread
     }
 }
 
-int main()
-{
+int main() {
     thread t1(printOdd);
     thread t2(printEven);
 
     t1.join();
     t2.join();
 
+    return 0;
 }
