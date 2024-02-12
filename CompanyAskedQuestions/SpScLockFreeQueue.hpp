@@ -15,8 +15,10 @@
  * https://www.linkedin.com/pulse/lock-free-single-producer-consumer-queue-c11-sander-jobing/
  */
 
-#ifndef SPSCLOCKFREEQUEUE_H
-#define SPSCLOCKFREEQUEUE_H
+// similar with tests : https://www.codeproject.com/script/Articles/ViewDownloads.aspx?aid=43510
+
+#ifndef SPSCLOCKFREEQUEUE_HPP
+#define SPSCLOCKFREEQUEUE_HPP
 
 #include <array>
 #include <atomic>
@@ -161,5 +163,5 @@ private:
 };
 
 
-#endif /* SPSCLOCKFREEQUEUE_H */
+#endif /* SPSCLOCKFREEQUEUE_HPP */
 
