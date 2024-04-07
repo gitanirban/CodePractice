@@ -27,8 +27,5 @@ int main() {
     cat.speak();
     dog.speak();
 
-    Cat cat2;
-    cat2.speak();
-
     return 0;
 }

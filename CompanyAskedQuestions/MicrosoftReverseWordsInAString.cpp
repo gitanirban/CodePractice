@@ -1,7 +1,26 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+
 int main() {
+    string Text = "This is test.";
+
+    vector<string> Words;
+    stringstream ss(Text);
+    string Buf;
+    stack<string> stack;
+
+    while (ss >> Buf)
+        stack.push(Buf);
+
+    while (!stack.empty()) {
+        cout << stack.top() << endl;
+        stack.pop();
+    }
+    return 0;
+}
+
+int main2() {
     // you can write to stdout for debugging purposes, e.g.
     string s = "This is test.";
     // output: test. is this
