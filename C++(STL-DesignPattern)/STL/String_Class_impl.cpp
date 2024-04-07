@@ -1,103 +1,98 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 class String {
 public:
-  String() :mp_resource(nullptr), m_length(0) {}  // default Ctr
-
-  String(const char* pArg) {  // parameterised ctor
-    m_length = strlen(pArg);
-    mp_resource = new char[m_length + 1U];
-    strcpy(mp_resource, pArg);
-  }
-
-  String(const String& rArg) {  // copy ctor
-    m_length = rArg.m_length;
-    mp_resource = new char[m_length + 1U];
-    strcpy(mp_resource, rArg.mp_resource);
-  }
-
-  String(const String&& rArg) {  // move constructor   && rvalue ref
-    m_length = rArg.m_length;
-    mp_resource = rArg;
-    rArg = nullptr;
-    rArg.m_length = 0;
-  }
-
-
-  String& operator = (const String& rArg) { // copy assignment operator
-    if (this != &rArg) {
-      delete[] mp_resource;
-      m_length = rArg.m_length;
-      mp_resource = new char[m_length + 1U];
-      strcpy(mp_resource, rArg.mp_resource);
+    std::string toStdString() const {
+        return std::string(m_pResource, m_length);
     }
-    return *this;
-  }
+    String() : m_pResource(nullptr), m_length(0) {}
 
-  // better copy assignment operator
-  String& operator = (const String& rArg) { // copy assignment operator
-    if (this != &rArg) {
-      char* pTemp = this->mp_resource;
 
-      delete[] mp_resource;
-      m_length = rArg.m_length;
-      mp_resource = new char[m_length + 1U];
-      strcpy(mp_resource, rArg.mp_resource);
-
-      delete[] pTemp;
+    String(char const* pArg) {
+        m_length = strlen(pArg);
+        m_pResource = new char[m_length + 1];
+        strcpy(m_pResource, pArg);
     }
-    return *this;
-  }
 
-  //Even better copy assignment operator using CAS idiom (copy and swap idiom)
-  String& operator = (String  rArg) { // copy assignment operator
-    if (this != &rArg) {
-      Swap(this, rArg);
+    String(String const& other)
+    {
+        m_length = other.m_length;
+        m_pResource = new char[m_length + 1];
+        strcpy(m_pResource, other.m_pResource);
     }
-    return *this;
-  }
-  void Swap(String& str1, String& str2) {
-    std::swap(str1.mp_resource, str2.mp_resource);
-    std::swap(str1.m_length, str2.m_length);
 
-  }
-
-  ~String() {
-    if (mp_resource) {
-      delete[] mp_resource;
-      mp_resource = nullptr;
-      m_length = 0;
+    /*
+     * Better copy assignment operator using CAS idiom (copy and swap idiom)
+     * overloaded assignment operator argument passed by value. calls copy ctor.
+     * Important note : INPUT CAN'T BE A REFERENCE.
+     */
+    String& operator=(String other)
+    {
+        swap(other.m_pResource, m_pResource);
+        swap(other.m_length, m_length);
+        return *this;
     }
-  }
-  uint8_t length() { return m_length }
-  friend ostream& operator << (ostream& out, const String& rStr);
-  friend istream& operator >> (istream& in, const String& rStr);
+
+    String(String&& other)
+    {
+        m_length = other.m_length;
+        m_pResource = other.m_pResource;
+        other.m_length = 0;
+        other.m_pResource = nullptr;
+    }
+
+
+    friend ostream& operator << (ostream& out, const String& rStr);
+    friend istream& operator >> (istream& in, const String& rStr);
+
 private:
-  uint8_t m_length;
-  char* mp_resource;
+    char* m_pResource;
+    size_t m_length;
 
 };
 
-ostream& operator << (ostream& out, const String& rStr) {
-  out << rStr.mp_resource;
-  return out; // to make a chain
+ostream& operator <<(ostream& out, String const& other) {
+    out << other.m_pResource;
+    return out;
 }
 
-istream& operator >> (istream& in, const String& rStr) {
-  in >> rStr.mp_resource;
-  return out; // to make a chain
+istream& operator >>(istream& in, String const& other) {
+    in >> other.m_pResource;
+    return in;
 }
 
 int main() {
-  String str1; //default Ctr
-  String str2 = "hello"; // parameterised ctor
-  String str3 = str1 // copy ctor
-    String str5(str1) // copy ctor
-    str3 = str2; // copy assignment operator   // handle str3 = str3 (invalid case)
-  int len = str3.length();
+    String s; //default Ctr
+    assert(s.toStdString() == "");
 
-  cout << str2 << str3; // overload <<
-  cin >> str1; // overload >>
-
-  String str6 = std::move(str2); // move constructor - handover str2  to str6 , and free str2
+    String s1 = "Hello 1"; // parameterised ctor
+    assert(s1.toStdString() == "Hello 1");
 
 
+    String s2(s1); // copy ctor
+    //  String s2 = s1; // copy ctor
+    assert(s2.toStdString() == "Hello 1");
+
+
+    String s3 = move(s2);
+    assert(s3.toStdString() == "Hello 1");
+    assert(s2.toStdString() == "");
+
+
+    String s4;
+    s4 = s1; //copy assignment operator 
+    assert(s4.toStdString() == "Hello 1");
+    assert(s1.toStdString() == "Hello 1");
+
+    String h = "Hello"; //default Ctr
+    String w = "World"; //default Ctr
+
+    cout << h << w << endl; // overload <<
+
+
+
+
+
+    return 0;
 }
