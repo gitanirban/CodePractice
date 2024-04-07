@@ -2,8 +2,23 @@
 
 #include <iostream>
 #include <vector>
+using namespace std;
 
-std::vector<int> merge(std::vector<int>& left, std::vector<int>& right) {
+template <typename T>
+void merge(const vector<T>& left, const vector<T>& right, vector<T>& output) {
+    auto leftItr = left.begin(), rightItr = right.begin(), outputItr = output.begin();
+    // Efficient single-loop merge with pre-increment
+    while (leftItr != left.end() && rightItr != right.end()) {
+        *outputItr++ = (*leftItr < *rightItr) ? *leftItr++ : *rightItr++;
+    }
+
+    // Append remaining elements (if any)
+    copy(leftItr, left.end(), outputItr);
+    copy(rightItr, right.end(), outputItr);
+}
+
+// More code, less optimised
+std::vector<int> merge2(std::vector<int>& left, std::vector<int>& right) {
     std::vector<int> output;
     int lSz = left.size(), rSz = right.size();
 
@@ -54,8 +69,9 @@ std::vector<int> merge_sort(std::vector<int>& list) {
 
     left_half = merge_sort(left_half);
     right_half = merge_sort(right_half);
+    merge(left_half, right_half, list);
 
-    return merge(left_half, right_half);
+    return list;
 }
 
 int main() {
