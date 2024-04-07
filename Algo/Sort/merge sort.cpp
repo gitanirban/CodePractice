@@ -76,16 +76,10 @@ std::vector<int> merge_sort(std::vector<int>& list) {
 
 int main() {
     std::vector<int> unsorted_list = { 2, 4, 1, 5, 7, 2, 6, 1, 1, 6, 4, 10, 33, 5, 7, 23 };
-    std::vector<int> sorted_list = merge_sort(unsorted_list);
+    (void)merge_sort(unsorted_list);
 
     std::cout << "Unsorted List:\n";
     for (int num : unsorted_list) {
-        std::cout << num << " ";
-    }
-    std::cout << std::endl;
-
-    std::cout << "Sorted List:\n";
-    for (int num : sorted_list) {
         std::cout << num << " ";
     }
     std::cout << std::endl;
