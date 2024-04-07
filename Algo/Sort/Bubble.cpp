@@ -6,7 +6,7 @@ void print_arr(int arr[], size_t sz);
 
 int main()
 {
-    int arr[] = { 99, 8, 11, 3, 5, 7, 66, 1, 2, 6 };
+    int arr[] = { 10,9,8,7,6,5,4,3,2,1 };
 
     bubble_sort(arr, 10);
     print_arr(arr, 10);
