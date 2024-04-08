@@ -23,7 +23,7 @@ public:
                 pLastNode = pLastNode->next;
             }
             pLastNode->next = pNewNode;
-        }
+                                                            }                                                                                                                                                                                                      
     }
     ListNode* removeNthFromEnd1(ListNode*& pHead, int n) {
         // Remove the nth node from the end of the list and return its head.

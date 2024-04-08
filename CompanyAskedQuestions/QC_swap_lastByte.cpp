@@ -2,26 +2,21 @@
 
 #include <iostream>
 #include <cstdint>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main()
 {
-    cout << "Hello world!" << endl;
-    uint32_t val = 0x12345678;
-    uint32_t F_word = val & 0xFFFF0000;
-    uint32_t S_word = val & 0xFFFF;
-    uint32_t res;
-   // printf("%x\n",S_word);
+  cout << "Hello world!" << endl;
+  uint32_t val = 0x12345678;
+  uint32_t F_word = (val & 0xFFFF0000) >> 16;
+  uint32_t S_word = (val & 0xFFFF) << 16;
+  uint32_t res;
 
-    S_word = ((S_word <<8) & 0xFFFF) |  ((S_word >>8));
+  res = (S_word) | F_word;
 
-    S_word = S_word | F_word;
-
-  //  printf("%x\n",val);
-
-    //printf("%x\n",F_word);
-    printf("%x\n",S_word);
+  assert(res == 0x56781234);
 
 
-    return 0;
+  return 0;
 }
