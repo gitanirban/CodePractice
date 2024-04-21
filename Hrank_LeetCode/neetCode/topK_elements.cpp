@@ -40,7 +40,6 @@ public:
         for (int n : nums) {
             count[n]++;
         }
-
         for (const auto& pair : count) {
             freq[pair.second].push_back(pair.first);
         }

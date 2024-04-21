@@ -27,7 +27,7 @@ int main2() {
     stack<string> stack;
     string word;
 
-    for (int i = 0; i < (s.length()); i++) {x
+    for (int i = 0; i < (s.length()); i++) {
 
         if (s[i] != ' ') {
             word.append(s, i, 1);
