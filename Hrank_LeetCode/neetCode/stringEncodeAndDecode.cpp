@@ -1,4 +1,4 @@
-// https://www.lintcode.com/problem/659/description
+        // https://www.lintcode.com/problem/659/description
 
 #include<bits/stdc++.h>
 using namespace std;
