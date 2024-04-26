@@ -1,7 +1,4 @@
- 
- 
- 
- #include <stddef.h> /* for size_t */
+#include <stddef.h> /* for size_t */
 #include <stdlib.h> /* for memcpy */
 
 #include <stddef.h> /* size_t */
