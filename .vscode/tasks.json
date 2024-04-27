@@ -39,6 +39,13 @@
             "options": {
                 "cwd": "${fileDirname}"
             },
+            "presentation": {
+                "reveal": "always",
+                "echo": true,
+                "focus": false,
+                "panel": "shared",
+                "clear": true // This line clears the terminal before running the task
+            },
             "problemMatcher": [
                 "$gcc"
             ],

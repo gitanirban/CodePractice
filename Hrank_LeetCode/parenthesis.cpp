@@ -6,12 +6,12 @@ class Solution {
 public:
     bool isValid(std::string s) {
         vector<char> stack;
-        unordered_map<char, char> closeToOpen{ { ')','('}, { '}','{'}, { ']','['} };
+        unordered_map<char, char> openMap{ { ')','('}, { '}','{'}, { ']','['} };
 
         for (auto c : s)
         {
-            if (closeToOpen.find(c) != closeToOpen.end())
-                if (stack.size() and stack.back() == closeToOpen[c]) stack.pop_back();
+            if (openMap.find(c) != openMap.end())
+                if (stack.size() and stack.back() == openMap[c]) stack.pop_back();
                 else
                     return false;
 
@@ -35,13 +35,13 @@ public:
                 brackets_stack.push(openBr);
             else {
                 if (brackets_stack.size() == 0) return false;
-                if (openBr == ')' and  brackets_stack.top() != '(') return false;
+                if (openBr == ')' and brackets_stack.top() != '(') return false;
                 if (openBr == '}' and brackets_stack.top() != '{') return false;
                 if (openBr == ']' and brackets_stack.top() != '[') return false;
                 brackets_stack.pop();
             }
         }
-        if(brackets_stack.size() > 0) return false;
+        if (brackets_stack.size() > 0) return false;
         return true;
     }
 };
