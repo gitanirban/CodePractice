@@ -1,39 +1,49 @@
-#include <iostream>
-#include <unordered_set>
-#include <cstdint>
-#include <cstring>
+#include <bits/stdc++.h>
 using namespace std;
-unordered_set<char> myCapsSet;
-void countUpperLowerCase(string s);
 
-void countUpperLowerCase(string s)
-{
-    int cap,small =0;
-
-    int sz = s.size();
-    char str_char[sz + 1];
-    strcpy(str_char, s.c_str());
+void countUpperLowerCaseOptimised(const string& s) {
+    int cap = count_if(s.begin(), s.end(), [](char c) { return  (c >= 'A' and c <= 'Z');});
+    int small = count_if(s.begin(), s.end(), [](char c) {return  (c >= 'a' and c <= 'z');});
 
 
-    for(uint64_t i =0; i<=sz; i++ )
-    {
-        if(myCapsSet.find(str_char[i]) != myCapsSet.end())
-        cap++;
-    }
-    cout << "cap \t: "<<cap<<endl;
-    cout << "samll \t: "<< sz - cap<<endl;
-
+    cout << "cap \t: " << cap << endl;
+    cout << "small \t: " << small << endl;
 }
 
-void init_my(){
 
-for(uint8_t i = 65; i<=90; i++)
-   myCapsSet.insert(i);
-}
 int main()
 {
-    init_my();
-    countUpperLowerCase("all small");
-
+    //  init_my();
+    cout << endl << endl;
+    countUpperLowerCaseOptimised("all small");
+    countUpperLowerCaseOptimised("Not all small");
     return 0;
 }
+
+
+
+// some other ways:
+unordered_set<char> myCapsSet;
+void countUpperLowerCase(string s)
+{
+    int cap, small = 0;
+
+    int sz = s.size();
+
+    for (uint64_t i = 0; i <= sz; i++)
+    {
+        if (myCapsSet.find(s[i]) != myCapsSet.end())
+            cap++;
+    }
+    cout << "cap \t: " << cap << endl;
+    cout << "samll \t: " << sz - cap << endl;
+
+}
+
+void init_my() {
+
+    for (uint8_t i = 65; i <= 90; i++)
+        myCapsSet.insert(i);
+}
+
+
