@@ -56,29 +56,29 @@ std::vector<int> merge2(std::vector<int>& left, std::vector<int>& right) {
     return output;
 }
 
-std::vector<int> merge_sort(std::vector<int>& list) {
+void merge_sort(std::vector<int>& list) {
     int list_length = list.size();
 
     if (list_length == 1)
-        return list;
+        return;
 
     int mid_point = list_length / 2;
 
     std::vector<int> left_half(list.begin(), list.begin() + mid_point);
     std::vector<int> right_half(list.begin() + mid_point, list.end());
 
-    left_half = merge_sort(left_half);
-    right_half = merge_sort(right_half);
+    merge_sort(left_half);
+    merge_sort(right_half);
     merge(left_half, right_half, list);
 
-    return list;
+
 }
 
 int main() {
     std::vector<int> unsorted_list = { 2, 4, 1, 5, 7, 2, 6, 1, 1, 6, 4, 10, 33, 5, 7, 23 };
-    (void)merge_sort(unsorted_list);
+    merge_sort(unsorted_list);
 
-    std::cout << "Unsorted List:\n";
+    std::cout << "Sorted List:\n";
     for (int num : unsorted_list) {
         std::cout << num << " ";
     }
