@@ -21,8 +21,8 @@ public:
 
 int main() {
 
-    Base<Cat> cat;
-    Base<Dog> dog;
+    Cat cat;
+    Dog dog;
 
     cat.speak();
     dog.speak();

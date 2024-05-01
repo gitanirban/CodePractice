@@ -20,7 +20,7 @@ int main() {
         }
         else {
             //reset max and store
-            myMap.insert(make_pair(max + 1, itr - (max)));
+            myMap[max + 1] = itr - max;
             max = 0;
         }
     }
