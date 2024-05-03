@@ -47,34 +47,39 @@ public:
 
 string reverseWords(string& rInput) {
     string output;
-
     StackLinkList<string> stack;
     string word;
+
     for (auto idx = 0; idx < rInput.length(); idx++) {
         if (rInput[idx] != ' ') {
             word += rInput[idx];
         }
-        else if ((rInput[idx] == ' ') or (idx == rInput.length())) {
-            stack.push(word + " ");
-            word = "";
+        else {
+            if (!word.empty()) {
+                stack.push(word);
+                word.clear();
+            }
         }
 
     }
-    stack.push(word + " "); // push the last word
+    stack.push(word); // push the last word
 
 
     while (stack.isEmpty() == false)
     {
-        output += stack.pop();
+        output += stack.pop() + " ";
     }
+
+    if (output.empty() == false) output.pop_back(); // remove last traling space
     return output;
+
 }
 int main() {
 
     { // test string word reverses
         string input = "This is test.";
-        string out = "test. is This ";
-        assert(out == reverseWords(input));
+        string out = "test. is This";
+        assert(reverseWords(input) == out);
 
     }
 
