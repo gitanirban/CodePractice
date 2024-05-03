@@ -10,20 +10,17 @@ int count = 0;
 
 int main() {
 
-    int i = 0, j = 0;
+    int j = 0;
     int len = max(sizeof(matcher), sizeof(ip));
 
-    while (len) {
+    for (int i = 0; i < len; i++) {
         char c1 = ip[i];
         char c2 = matcher[j];
         if (c1 == c2) {
-            i++;
             j++;
             count++;
-        } else {
-            i++;
         }
-        len--;
+
     }
 
 
