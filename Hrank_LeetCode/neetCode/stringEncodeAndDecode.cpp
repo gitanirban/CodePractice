@@ -30,7 +30,7 @@ public:
             while (str[indexOfSize] != '#') indexOfSize++;
             size_t size = stoi(str.substr(start, indexOfSize));
             res.push_back(str.substr(indexOfSize + 1, size));
-            start += size + sizeof('#') + 1;
+            start += size + sizeof('#') + to_string(size).size();
         }
 
         return res;
@@ -39,7 +39,7 @@ public:
 
 
 int main() {
-    vector<string> input = { "lint","code","love","you" };
+    vector<string> input = { "lint","code","love","you", "123456789A"};
     string encoded = Solution::encode(input);
 
     vector<string> output = Solution::decode(encoded);
