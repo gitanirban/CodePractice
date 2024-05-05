@@ -5,7 +5,8 @@
 // minimum max of BST
 
 // https://www.youtube.com/watch?v=Ut90klNN264&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=30
-//
+// todo https://www.youtube.com/watch?v=QfJsau0ItOY&list=PLot-Xpze53ldg4pN6PfzoJY7KsKcxF1jg
+// traversal BFS dfs
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -62,7 +63,6 @@ int main() {
     assert(hight == 4);
 
     assert(BST<int>::findMin(pRoot) == 50);
-
 
 
     return 0;
