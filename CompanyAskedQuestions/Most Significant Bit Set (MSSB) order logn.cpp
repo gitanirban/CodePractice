@@ -1,5 +1,5 @@
 /*
-    @brief Using Devide and Conquer algorithm to find the Highest Bit set(Most Significant Bit) of a 32 bit number.
+    @brief Using Divide and Conquer algorithm to find the Highest Bit set(Most Significant Bit) of a 32 bit number.
 
     The function findMSbitBinSearch(uint32_t input) uses Binary Search alogrithm to find the set MSBit.
 
