@@ -1,7 +1,7 @@
 /*
     @brief Using Devide and Conquer algorithm to find the Highest Bit set(Most Significant Bit) of a 32 bit number.
 
-    The function findMSbitBinSearch(uint32_t input) used Binary Search alogrithm to find the set MSBit.
+    The function findMSbitBinSearch(uint32_t input) uses Binary Search alogrithm to find the set MSBit.
 
     @param  `input` has to be supplied with setting all the bits after the `Set` Most Significant bit (MSSB).
             As Binary Search requires a Sorted Array, in this case, we have to pre-set the right side of the `Set` Most Significant Bit.
