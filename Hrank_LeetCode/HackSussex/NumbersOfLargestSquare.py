@@ -10,10 +10,11 @@ def number_of_largest_square_(inp):
     return count.get(max_size, 0)
 
 def number_of_largest_square(rectangles: list[list[int]]) -> int:
-    if len(rectangles) is 0:
+    if len(rectangles) == 0:
         return 0
 
-    squares = list(map(min, rectangles))
+    #squares = list(map(min, rectangles)) // same 
+    squares = [min(rect) for rect in rectangles]
     highest = max(squares)
     square_filtered = [ i for i in squares if i == highest]
 
