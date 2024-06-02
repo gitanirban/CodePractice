@@ -97,7 +97,7 @@ public:
         pHead = pRev;
     }
 
-    Node* mergeList(Node*& pHead1, Node*& pHead2) {
+    Node* mergeList(Node* pHead1, Node* pHead2) {
         Node Dummy(0);
         Node* pTail = &Dummy;
 
