@@ -20,7 +20,6 @@ public:
 
     int get(int const key);
     void put(int key, int value);
-    void put(int key);
 
     void display();
     void test(int arr[]);

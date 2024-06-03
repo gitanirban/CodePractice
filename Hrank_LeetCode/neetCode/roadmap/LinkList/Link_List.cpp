@@ -61,7 +61,6 @@ public:
             pHead = pHead->next;
         }
     }
-
     static ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
         ListNode Dummy(0);
         ListNode* pTail = &Dummy;
@@ -193,7 +192,7 @@ public:
     bool hasCycle(ListNode* pHead) {
         if (pHead == nullptr) return false;
         Node* pSlow = pHead, pFast = pHead;
-        while (pSlow->next and pFast->next and pFast->next->next )
+        while (pSlow->next and pFast->next and pFast->next->next)
         {
             pSlow = pSlow->next;
             pFast = pFast->next->next;
@@ -201,6 +200,21 @@ public:
         }
         return false;
     }
+
+    static ListNode* mergeKLists(vector<ListNode*>& lists) {
+        size_t sz = lists.size();
+        if (sz == 0) { return NULL; }
+
+        while (sz > 1) {
+            for (auto idx = 0U; idx < sz / 2; idx++) {
+                lists[idx] = mergeTwoLists(lists[idx], lists[sz - 1 - idx]);
+            }
+            sz = (sz + 1) / 2;
+        }
+        return lists.front();
+    }
+
+
 };
 
 int main() {
