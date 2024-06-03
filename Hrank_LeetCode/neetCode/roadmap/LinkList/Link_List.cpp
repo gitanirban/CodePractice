@@ -166,6 +166,41 @@ public:
 
         return oldToNewMap[pHead];
     }
+
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* dummy = new ListNode(0);
+        ListNode* pCur = dummy;
+
+        size_t carry = 0;
+        while (l1 or l2 or carry)
+        {
+            size_t l1Val = l1 ? l1->val : 0;
+            size_t l2Val = l2 ? l2->val : 0;
+            size_t sum = l1Val + l2Val + carry;
+
+            size_t val = sum % 10;
+            carry = sum / 10;
+
+            pCur->next = new ListNode(val);
+
+            l1 = l1 ? l1->next : nullptr;
+            l2 = l2 ? l2->next : nullptr;
+            pCur = pCur->next;
+        }
+        return dummy->next;
+    }
+
+    bool hasCycle(ListNode* pHead) {
+        if (pHead == nullptr) return false;
+        Node* pSlow = pHead, pFast = pHead;
+        while (pSlow->next and pFast->next and pFast->next->next )
+        {
+            pSlow = pSlow->next;
+            pFast = pFast->next->next;
+            if (pSlow == pFast) { return true; }
+        }
+        return false;
+    }
 };
 
 int main() {
