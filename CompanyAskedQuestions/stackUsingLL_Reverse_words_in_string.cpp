@@ -9,13 +9,13 @@ public:
         TYPE m_data;
         Node* m_pPrev;
         Node(TYPE data) : m_data(data), m_pPrev(nullptr) {}
+        Node(TYPE data, Node* pPrev) : m_data(data), m_pPrev(pPrev) {}
+
     };
     Node* pTop = nullptr;
 
     void push(TYPE data) {
-        Node* pTemp = new Node(data);
-        pTemp->m_pPrev = pTop;
-        pTop = pTemp;
+        pTop = new Node(data, pTop);
     }
 
     TYPE pop() {

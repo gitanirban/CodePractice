@@ -42,6 +42,13 @@ public:
         other.m_pResource = nullptr;
     }
 
+    char& operator[](size_t index) {
+        if (index >= 0 and index < m_length)
+            return m_pResource[index];
+        else {
+            throw std::runtime_error("Null pointer exception");
+        }
+    }
 
     friend ostream& operator << (ostream& out, const String& rStr);
     friend istream& operator >> (istream& in, const String& rStr);
@@ -91,8 +98,11 @@ int main() {
     cout << h << w << endl; // overload <<
 
 
+    assert('H' == h[0]);
+    h[0] = 'J';
+    assert('J' == h[0]);
 
-
+    cout << "Success" << endl;
 
     return 0;
 }
